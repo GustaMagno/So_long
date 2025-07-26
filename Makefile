@@ -27,4 +27,8 @@ re: fclean all
 r:
 	make re && clear && ./$(NAME)
 
+v:
+	make re && clear && valgrind ./$(NAME)
+
+
 .PHONY: all clean fclean re run

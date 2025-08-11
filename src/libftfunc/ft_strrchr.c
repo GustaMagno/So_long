@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 17:11:16 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/11 23:40:30 by gustoliv         ###   ########.fr       */
+/*   Created: 2025/08/11 17:52:21 by gustoliv          #+#    #+#             */
+/*   Updated: 2025/08/11 20:23:23 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "get_next_line.h"
 
-
-int	build_map(char *ber, t_game *mlx)
+char	*ft_strrchr(const char *s, int c)
 {
-	char	*strtemp;
-	int		fd;
-	
-	fd = open(ber, O_RDONLY);
-	if (!parsing_ber(fd, ber))
+	int		i;
+	int		keep;
+
+	keep = -1;
+	i = 0;
+	if (!s)
 		return (0);
-	while (1)
+	while (s[i])
 	{
-		strtemp = get_next_line(fd);
-		if (!strtemp)
-			break ;
-		mlx->map.str = ft_strjoin2(mlx->map.str, strtemp);
+		if (s[i] == (unsigned char)c)
+			keep = i;
+		i++;
 	}
-	mlx->map.map = ft_split(mlx->map.str, '\n');
-	if (!check_map(mlx->map.map))
-		return (0);
-	close(fd);
-	return (1);
+	if ((char)c == '\0' && s[i] == '\0')
+		return ((char *)&s[i]);
+	if (keep >= 0)
+		return ((char *)&s[keep]);
+	return (NULL);
 }

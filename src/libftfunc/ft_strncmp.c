@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 17:11:16 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/11 23:40:30 by gustoliv         ###   ########.fr       */
+/*   Created: 2025/08/11 17:54:43 by gustoliv          #+#    #+#             */
+/*   Updated: 2025/08/11 20:23:45 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "get_next_line.h"
 
-
-int	build_map(char *ber, t_game *mlx)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*strtemp;
-	int		fd;
-	
-	fd = open(ber, O_RDONLY);
-	if (!parsing_ber(fd, ber))
-		return (0);
-	while (1)
+	size_t	cont1;
+
+	cont1 = 0;
+	while (cont1 < n)
 	{
-		strtemp = get_next_line(fd);
-		if (!strtemp)
-			break ;
-		mlx->map.str = ft_strjoin2(mlx->map.str, strtemp);
+		if (s1[cont1] != s2[cont1] || s1[cont1] == '\0' || s2[cont1] == '\0')
+			return ((unsigned char)s1[cont1] - (unsigned char)s2[cont1]);
+		cont1++;
 	}
-	mlx->map.map = ft_split(mlx->map.str, '\n');
-	if (!check_map(mlx->map.map))
-		return (0);
-	close(fd);
-	return (1);
+	return (0);
 }

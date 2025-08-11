@@ -16,6 +16,7 @@ void free_game(t_game *data)
 {
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
+	mlx_destroy_image(data->mlx, data->img);
 	free(data->mlx);
 	free(data->img);
 	exit(0);
@@ -47,13 +48,11 @@ void	update_player_position(t_player *player)
 
 int	update_game(t_game *mlx)
 {
-	// if (nao passou 100ml)
-	// 	return ;
-	//update_time_diff(mlx); //funcao para dar update no tempo
 	update_player_position(&mlx->player);
 	printf("x: %i y: %i\n", mlx->player.x, mlx->player.y);
+	mlx_clear_window(mlx->mlx, mlx->mlx_win);
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, mlx->player.x, mlx->player.y);
-	usleep(10000);		
+	usleep(10000);	
 }
 
 int	key_release(int key, t_game *mlx)
@@ -71,20 +70,24 @@ int	key_press(int key, t_game *mlx)
 	return (0);
 }
 
-int main()
+int main(int argc, char **argv)
 {
-	static t_game mlx;
-	static t_player p = {.w = 48, .h = 32};
+	static t_game 	mlx;
+	static t_player p = {.w = 64, .h = 64};
+	static	t_map 	map;
 
+	if (argc != 2)
+		return (1);
 	mlx.mlx = mlx_init();
 	mlx.mlx_win = mlx_new_window(mlx.mlx, 800, 600, "So_Long");
 	mlx_hook(mlx.mlx_win, 2,  1L << 0, key_press, &mlx);
 	mlx_hook(mlx.mlx_win, 3,  1L << 1, key_release, &mlx);
-
+	build_map(argv[1], mlx, map)
 	mlx_hook(mlx.mlx_win, 17, 0, close_x, &mlx);
 	mlx_do_sync(mlx.mlx);
 	mlx_loop_hook(mlx.mlx, update_game, &mlx);
-	mlx.img = mlx_xpm_file_to_image(mlx.mlx, "dog.xpm", &p.w, &p.h);
+	mlx.mlx_win = mlx_new_window(mlx.mlx, map.len_row * 32, map.len_colunm * 32 , "So_Long");
+	mlx.img = mlx_xpm_file_to_image(mlx.mlx, "redslime.xpm", &p.w, &p.h);
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, mlx.img, p.x, p.y);
 	return (mlx_loop(mlx.mlx));
 }

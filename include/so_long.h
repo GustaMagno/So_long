@@ -6,8 +6,9 @@
 #  include <stdlib.h>
 #  include <unistd.h>
 #  include "../minilibx-linux/mlx.h"
-#  include <X11/keysym.h>
 #  include <sys/time.h>
+#  include <X11/keysym.h>
+
 
 #  define W 800
 #  define H 600
@@ -28,8 +29,20 @@ typedef struct s_game
 	void		*img;
 }t_game;
 
+typedef struct s_map
+{
+	char	**map;
+	int		fd;
+	char	*str;
+	int		i;
+	int		len_row;
+	int		len_colunm;
+}t_map;
 
-int	key_press(int key, t_game *mlx);
-int close_x(t_game *mlx);
+
+int		key_press(int key, t_game *mlx);
+int		close_x(t_game *mlx);
+char	**ft_split(char const *s, char c);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 
 #endif

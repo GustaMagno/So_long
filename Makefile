@@ -25,10 +25,10 @@ fclean: clean
 re: fclean all
 
 r:
-	make re && clear && ./$(NAME)
+	make re && clear && ./$(NAME) mapa.ber
 
 v:
-	make re && clear && valgrind ./$(NAME)
+	make re && clear && valgrind ./$(NAME) mapa.ber
 
 
 .PHONY: all clean fclean re run

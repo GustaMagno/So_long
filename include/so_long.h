@@ -19,6 +19,8 @@ typedef struct s_player
 	int 	x;
 	int 	y;
 	char	keyboard[70000];
+	int		player_x;
+	int		player_y;
 }t_player;
 typedef struct s_map
 {
@@ -36,8 +38,14 @@ typedef struct s_game
 	void		*mlx_win;
 	void		*img;
 }t_game;
-int	key_press(int key, t_game *mlx);
-int close_x(t_game *mlx);
+
+typedef enum e_type {
+	OB_P = 'P' + 5,
+	OB_0 = '0' + 5
+} t_type;
+
+int		key_press(int key, t_game *mlx);
+int 	close_x(t_game *mlx);
 char	*ft_strrchr(const char *s, int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
@@ -46,7 +54,10 @@ int		build_map(char *ber, t_game *mlx);
 int 	parsing_ber(int fd, char *ber);
 char	*ft_strjoin2(const char *s1, const char *s2);
 int 	parsing_ber(int fd, char *ber);
-int 	check_map(char **map);
+int 	check_map(char **map, t_game *mlx);
 int 	conditions(char c, int final);
+int		check_wall(char **map);
+void 	flood_fill(char **map, int x, int y);
+void 	print_map(char **map);
 
 #endif

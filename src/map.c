@@ -6,13 +6,42 @@
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 17:11:16 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/12 20:30:13 by gustoliv         ###   ########.fr       */
+/*   Updated: 2025/08/13 22:42:16 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "get_next_line.h"
 
+void	tales_conditions(t_game *mlx, char c, int x, int y)
+{
+	if (c == OB_0)
+		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.ground, x * 64, y * 64);
+	if (c == OB_C)
+		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.coin, x * 64, y * 64);
+	if (c == OB_E)
+		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.exit, x * 64, y * 64);
+	if (c == '1')
+		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.wall, x * 64, y * 64);
+}
+
+void	put_map(t_game *mlx, char **map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			tales_conditions(mlx, map[i][j], i, j);
+			j++;
+		}
+		i++;
+	}
+}
 
 int	build_map(char *ber, t_game *mlx)
 {
@@ -21,22 +50,22 @@ int	build_map(char *ber, t_game *mlx)
 	
 	fd = open(ber, O_RDONLY);
 	if (!parsing_ber(fd, ber))
-		return (write(1, "MAPA INVALIDO", 13), 0);
+		return (close(fd), write(1, "MAPA INVALIDO", 13), 0);
 	while (1)
 	{
 		strtemp = get_next_line(fd);
 		if (strtemp && strtemp[0] == '\n' && strtemp[1] == '\0')
-			return (write(1, "MAPA INVALIDO", 13), 0);
+			return (close(fd), write(1, "MAPA INVALIDO", 13), 0);
 		if (!strtemp)
 			break ;
 		mlx->map.str = ft_strjoin2(mlx->map.str, strtemp);
 	}
+	close(fd);
 	mlx->map.map = ft_split(mlx->map.str, '\n');
 	if (!check_map(mlx->map.map, mlx))
 		return (write(1, "MAPA INVALIDO", 13), 0);
-	close(fd);
 	flood_fill(mlx->map.map, mlx->player.player_x, mlx->player.player_y);
-	print_map(mlx->map.map);
-	exit(0);
+	if (!(check_flood(mlx->map.map)))
+		return (write(1, "MAPA INVALIDO", 13), 0);
 	return (1);
 }

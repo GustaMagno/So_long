@@ -6,7 +6,7 @@
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 22:33:58 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/11 20:53:37 by gustoliv         ###   ########.fr       */
+/*   Updated: 2025/08/13 22:43:02 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void free_game(t_game *mlx)
 {
 	if (mlx->mlx)
 	{
-		mlx_destroy_image(mlx->mlx, mlx->img);
+		mlx_destroy_image(mlx->mlx, mlx->images.player);
 		mlx_destroy_window(mlx->mlx,mlx->mlx_win);
 		mlx_destroy_display(mlx->mlx);
 		free(mlx->mlx);
@@ -55,7 +55,8 @@ int	update_game(t_game *mlx)
 	//update_time_diff(mlx); //funcao para dar update no tempo
 	update_player_position(&mlx->player);
 	printf("x: %i y: %i\n", mlx->player.x, mlx->player.y);
-	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img, mlx->player.x, mlx->player.y);
+	put_map(mlx, mlx->map.map);
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.player, mlx->player.x, mlx->player.y);
 	usleep(10000);
 	return (0);	
 }
@@ -75,13 +76,22 @@ int	key_press(int key, t_game *mlx)
 	return (0);
 }
 
+void	put_tiles(t_game *mlx, int w, int h)
+{
+	mlx->images.player = mlx_xpm_file_to_image(mlx->mlx, "redslime.xpm", &w, &h);
+	mlx->images.coin = mlx_xpm_file_to_image(mlx->mlx, "coin.xpm", &w, &h);
+	mlx->images.wall = mlx_xpm_file_to_image(mlx->mlx, "wall.xpm", &w, &h);
+	mlx->images.exit = mlx_xpm_file_to_image(mlx->mlx, "exit.xpm", &w, &h);
+	mlx->images.ground = mlx_xpm_file_to_image(mlx->mlx, "ground.xpm", &w, &h);
+}
+
 int main(int argc, char **argv)
 {
 	static t_game mlx;
 	static t_player p = {.w = 32, .h = 32};
 
 	if (argc != 2)
-		return (0);
+		return (write(1, "POUCOS ARGS", 11), 0);
 	if (!build_map(argv[1], &mlx))
 		free_game(&mlx);
 	mlx.mlx = mlx_init();
@@ -90,8 +100,8 @@ int main(int argc, char **argv)
 	mlx_hook(mlx.mlx_win, 3,  1L << 1, key_release, &mlx);
 	mlx_hook(mlx.mlx_win, 17, 0, close_x, &mlx);
 	mlx_do_sync(mlx.mlx);
-	mlx.img = mlx_xpm_file_to_image(mlx.mlx, "redslime.xpm", &p.w, &p.h);
+	put_tiles(&mlx, 32, 32);
 	mlx_loop_hook(mlx.mlx, update_game, &mlx);
-	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, mlx.img, p.x, p.y);
+	put_map(&mlx, mlx.map.map);
 	return (mlx_loop(mlx.mlx));
 }

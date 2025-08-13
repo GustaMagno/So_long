@@ -22,6 +22,15 @@ typedef struct s_player
 	int		player_x;
 	int		player_y;
 }t_player;
+
+typedef struct s_images
+{
+	void	*ground;
+	void	*wall;
+	void	*player;
+	void	*exit;
+	void	*coin;
+}t_images;
 typedef struct s_map
 {
 	char	**map;
@@ -34,14 +43,17 @@ typedef struct s_game
 {
 	t_player	player;
 	t_map		map;
+	t_images	images;
 	void		*mlx;
 	void		*mlx_win;
-	void		*img;
 }t_game;
+
 
 typedef enum e_type {
 	OB_P = 'P' + 5,
-	OB_0 = '0' + 5
+	OB_0 = '0' + 5,
+	OB_E = 'E' + 5,
+	OB_C = 'C' + 5
 } t_type;
 
 int		key_press(int key, t_game *mlx);
@@ -59,5 +71,7 @@ int 	conditions(char c, int final);
 int		check_wall(char **map);
 void 	flood_fill(char **map, int x, int y);
 void 	print_map(char **map);
+int		check_flood(char **map);
+void	put_map(t_game *mlx, char **map);
 
 #endif

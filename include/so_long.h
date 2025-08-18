@@ -17,17 +17,27 @@ typedef struct s_player
 	int 	w;
 	int 	h;
 	char	keyboard[70000];
-	int		player_x;
-	int		player_y;
+	float	player_x;
+	float	player_y;
 }t_player;
+
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int 	w;
+	int 	h;
+	int		endian;
+}				t_img;
 
 typedef struct s_images
 {
-	void	*ground;
-	void	*wall;
-	void	*player;
-	void	*exit;
-	void	*coin;
+	t_img	ground;
+	t_img	wall;
+	t_img	player;
+	t_img	exit;
+	t_img	coin;
 }t_images;
 typedef struct s_map
 {
@@ -42,6 +52,7 @@ typedef struct s_game
 	t_player	player;
 	t_map		map;
 	t_images	images;
+	t_img		buffer;
 	void		*mlx;
 	void		*mlx_win;
 }t_game;
@@ -71,5 +82,8 @@ void 	flood_fill(char **map, int x, int y);
 void 	print_map(char **map);
 int		check_flood(char **map);
 void	put_map(t_game *mlx, char **map);
+void	load_images(t_game *mlx);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void 	put_img(t_game *mlx, t_img *img, int x, int y);
 
 #endif

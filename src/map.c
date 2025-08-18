@@ -6,7 +6,7 @@
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 17:11:16 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/18 19:26:48 by gustoliv         ###   ########.fr       */
+/*   Updated: 2025/08/18 23:38:15 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 void	tales_conditions(t_game *mlx, char c, int x, int y)
 {
 	if (c == OB_0 || OB_P)
-		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.ground, x * 64, y * 64);
+		put_img(mlx, &mlx->images.ground, x * 64, y * 64);
 	if (c == OB_C)
-		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.coin, x * 64, y * 64);
+		put_img(mlx, &mlx->images.coin, x * 64, y * 64);
 	if (c == OB_E)
-		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.exit, x * 64, y * 64);
+		put_img(mlx, &mlx->images.exit, x * 64, y * 64);
 	if (c == '1')
-		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.wall, x * 64, y * 64);
+		put_img(mlx, &mlx->images.wall, x * 64, y * 64);
 }
 
 void	put_map(t_game *mlx, char **map)

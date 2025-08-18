@@ -62,7 +62,7 @@ char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 int		build_map(char *ber, t_game *mlx);
 int 	parsing_ber(int fd, char *ber);
-char	*ft_strjoin2(const char *s1, const char *s2);
+char	*ft_strjoin2(char *s1, const char *s2);
 int 	parsing_ber(int fd, char *ber);
 int 	check_map(char **map, t_game *mlx);
 int 	conditions(char c, int final);

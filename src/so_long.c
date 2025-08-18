@@ -6,11 +6,35 @@
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 22:33:58 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/13 22:43:02 by gustoliv         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:45:09 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	player_in_wall(t_game *mlx, int x, int y)
+{
+	px_left = x / 64;
+	// printf("TALE : %c\n", mlx->map.map[y / 64][x / 64]);
+	if (mlx->map.map[y / 64][x / 64] == '1')
+		return (0);
+	if (mlx->map.map[(y / 64) + 1][x / 64] == '1' || mlx->map.map[y / 64][(x / 64) + 1] == '1')
+		return (0);
+	return (1);
+}
+
+int	player_position(t_game *mlx, char p_walk)
+{
+	if (p_walk == 'W')
+		return (player_in_wall(mlx, mlx->player.player_x, mlx->player.player_y - 4));
+	if (p_walk == 'S')
+		return (player_in_wall(mlx, mlx->player.player_x, mlx->player.player_y + 4));
+	if (p_walk == 'A')
+		return (player_in_wall(mlx, mlx->player.player_x - 4, mlx->player.player_y));
+	if (p_walk == 'D')
+		return (player_in_wall(mlx, mlx->player.player_x + 4, mlx->player.player_y));
+	return (1);
+}
 
 void	free_map(char **map)
 {
@@ -18,6 +42,8 @@ void	free_map(char **map)
 	int	j;
 
 	i = 0;
+	if (!map)
+		return ;
 	while (map[i])
 	{
 		free(map[i]);
@@ -35,11 +61,12 @@ void	free_game(t_game *mlx)
 		mlx_destroy_image(mlx->mlx, mlx->images.exit);
 		mlx_destroy_image(mlx->mlx, mlx->images.wall);
 		mlx_destroy_image(mlx->mlx, mlx->images.ground);
-		free(mlx->map.map);
 		mlx_destroy_window(mlx->mlx,mlx->mlx_win);
 		mlx_destroy_display(mlx->mlx);
 		free(mlx->mlx);
 	}
+	free_map(mlx->map.map);
+	free(mlx->map.str);
 	exit(0);
 }
 int close_x(t_game *mlx)
@@ -55,16 +82,17 @@ unsigned long	get_time(void)
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
-void	update_player_position(t_player *player)
+void	update_player_position(t_game *mlx)
 {
-	if  (player->keyboard[XK_W] || player->keyboard[XK_w])
-		player->player_y -= 4;
-	if  (player->keyboard[XK_S] || player->keyboard[XK_s])
-		player->player_y += 4;
-	if  (player->keyboard[XK_A] || player->keyboard[XK_a])
-		player->player_x -= 4;
-	if  (player->keyboard[XK_D] || player->keyboard[XK_d])
-		player->player_x += 4;
+	// printf("TALE : %c\n", mlx->map.map[mlx->player.player_y / 64][mlx->player.player_x / 64]);
+	if  (mlx->player.keyboard[XK_W] || mlx->player.keyboard[XK_w] && player_position(mlx, 'W'))
+		mlx->player.player_y -= 4;
+	if  (mlx->player.keyboard[XK_S] || mlx->player.keyboard[XK_s] && player_position(mlx, 'S'))
+		mlx->player.player_y += 4;
+	if  (mlx->player.keyboard[XK_A] || mlx->player.keyboard[XK_a] && player_position(mlx, 'A'))
+		mlx->player.player_x -= 4;
+	if  (mlx->player.keyboard[XK_D] || mlx->player.keyboard[XK_d] && player_position(mlx, 'D'))
+		mlx->player.player_x += 4;
 }
 
 int	update_game(t_game *mlx)
@@ -72,7 +100,7 @@ int	update_game(t_game *mlx)
 	// if (nao passou 100ml)
 	// 	return ;
 	//update_time_diff(mlx); //funcao para dar update no tempo
-	update_player_position(&mlx->player);
+	update_player_position(mlx);
 	printf("x: %i y: %i\n", mlx->player.player_x, mlx->player.player_y);
 	put_map(mlx, mlx->map.map);
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.player, mlx->player.player_x, mlx->player.player_y);

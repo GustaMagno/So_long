@@ -6,7 +6,7 @@
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 17:11:16 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/13 22:42:16 by gustoliv         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:26:48 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ int	build_map(char *ber, t_game *mlx)
 		if (!strtemp)
 			break ;
 		mlx->map.str = ft_strjoin2(mlx->map.str, strtemp);
+		free(strtemp);
 	}
 	close(fd);
 	mlx->map.map = ft_split(mlx->map.str, '\n');
-	if (!check_map(mlx->map.map, mlx))
+	if (!(mlx->map.map) || !check_map(mlx->map.map, mlx))
 		return (write(1, "MAPA INVALIDO", 13), 0);
 	flood_fill(mlx->map.map, mlx->player.player_x, mlx->player.player_y);
 	if (!(check_flood(mlx->map.map)))

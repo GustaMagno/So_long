@@ -6,7 +6,7 @@
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 20:55:41 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/12 19:34:55 by gustoliv         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:51:00 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,5 @@ int parsing_ber(int fd, char *ber)
 	str = ft_strrchr(ber, '.');
 	if (ft_strncmp(str, ".ber", 4) != 0)
 		return (0);
-	free(str);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 19:38:39 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/11 20:22:02 by gustoliv         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:20:53 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,24 @@ static size_t	ft_strlcat(char *dest, const char *src, size_t size)
 
 
 
-char	*ft_strjoin2(const char *s1, const char *s2)
+char	*ft_strjoin2(char *s1, const char *s2)
 {
 	char	*str;
 	size_t	size;
 
+	if (!s1)
+	{
+		s1 = malloc(1);
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
+	}
 	size = ft_strlen(s2) + ft_strlen(s1);
 	str = (char *)malloc((size + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, s1, size + 1);
 	ft_strlcat(str, s2, size + 1);
+	free(s1);
 	return (str);
 }

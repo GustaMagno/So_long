@@ -37,25 +37,23 @@ int check_rectangle(char **map, int *lenline, int *lencolumn)
 	return (1);
 }
 
-int	check_wall(char **map)
+int	check_wall(char **map, t_game *mlx)
 {
 	int check;
 	int i;
 	int j;
-	int l_line;
-	int lcol;
 
 	i = 0;
-	if (!check_rectangle(map, &l_line,  &lcol))
+	if (!check_rectangle(map, &mlx->map.len_r,  &mlx->map.len_c))
 		return (0);
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if ((i == 0 && map[i][j] != '1' ) || (i == lcol - 1 && map[i][j] != '1'))
+			if ((i == 0 && map[i][j] != '1' ) || (i == mlx->map.len_c - 1 && map[i][j] != '1'))
 				return (0);
-			else if ((j == 0 || j == l_line - 1) && map[i][j] != '1')
+			else if ((j == 0 || j == mlx->map.len_r - 1) && map[i][j] != '1')
 				return (0);
 			else
 				j++;
@@ -93,7 +91,7 @@ int check_map(char **map, t_game *mlx)
 	int check;
 	
 	i = 0;
-	check = check_wall(map);
+	check = check_wall(map, mlx);
 	while (map[i])
 	{	
 		j = 0;
@@ -123,5 +121,6 @@ int parsing_ber(int fd, char *ber)
 	str = ft_strrchr(ber, '.');
 	if (ft_strncmp(str, ".ber", 4) != 0)
 		return (0);
+	free(str);
 	return (1);
 }

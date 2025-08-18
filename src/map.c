@@ -15,7 +15,7 @@
 
 void	tales_conditions(t_game *mlx, char c, int x, int y)
 {
-	if (c == OB_0)
+	if (c == OB_0 || OB_P)
 		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.ground, x * 64, y * 64);
 	if (c == OB_C)
 		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->images.coin, x * 64, y * 64);
@@ -36,7 +36,7 @@ void	put_map(t_game *mlx, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			tales_conditions(mlx, map[i][j], i, j);
+			tales_conditions(mlx, map[i][j], j, i);
 			j++;
 		}
 		i++;

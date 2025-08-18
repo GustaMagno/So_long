@@ -16,8 +16,6 @@ typedef struct s_player
 {
 	int 	w;
 	int 	h;
-	int 	x;
-	int 	y;
 	char	keyboard[70000];
 	int		player_x;
 	int		player_y;
@@ -36,8 +34,8 @@ typedef struct s_map
 	char	**map;
 	char	*str;
 	int		i;
-	int		len_row;
-	int		len_colunm;
+	int		len_r;
+	int		len_c;
 }t_map;
 typedef struct s_game
 {
@@ -68,7 +66,7 @@ char	*ft_strjoin2(const char *s1, const char *s2);
 int 	parsing_ber(int fd, char *ber);
 int 	check_map(char **map, t_game *mlx);
 int 	conditions(char c, int final);
-int		check_wall(char **map);
+int		check_wall(char **map, t_game *mlx);
 void 	flood_fill(char **map, int x, int y);
 void 	print_map(char **map);
 int		check_flood(char **map);

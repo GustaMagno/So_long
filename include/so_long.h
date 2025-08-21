@@ -46,6 +46,9 @@ typedef struct s_map
 	int		i;
 	int		len_r;
 	int		len_c;
+	int		collects;
+	int		collected;
+	int		leave;
 }t_map;
 typedef struct s_game
 {
@@ -76,7 +79,6 @@ int 			parsing_ber(int fd, char *ber);
 char			*ft_strjoin2(char *s1, const char *s2);
 int 			parsing_ber(int fd, char *ber);
 int 			check_map(char **map, t_game *mlx);
-int 			conditions(char c, int final);
 int				check_wall(char **map, t_game *mlx);
 void 			flood_fill(char **map, int x, int y);
 void 			print_map(char **map);

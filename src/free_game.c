@@ -40,6 +40,9 @@ void	free_game(t_game *mlx)
 		mlx_destroy_window(mlx->mlx,mlx->mlx_win);
 		mlx_destroy_display(mlx->mlx);
 		free(mlx->mlx);
+		mlx_destroy_image(mlx->mlx, mlx->buffer.img);
+		free(mlx->buffer.img);
+		free(mlx->buffer.addr);
 	}
 	free_map(mlx->map.map);
 	free(mlx->map.str);

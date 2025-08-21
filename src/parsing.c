@@ -63,7 +63,7 @@ int	check_wall(char **map, t_game *mlx)
 	return (1);
 }
 
-int conditions(char c, int final)
+static int conditions(char c, int final, t_game *mlx)
 {
 	static int check_P;
 	static int check_C;
@@ -73,7 +73,7 @@ int conditions(char c, int final)
 		return (0);
 	if (c == 'P')
 		check_P = 1;
-	else if (c == 'C')
+	else if (c == 'C' && ++mlx->map.collects)
 		check_C = 1;
 	else if (c == 'E')
 		check_E = 1;
@@ -102,13 +102,13 @@ int check_map(char **map, t_game *mlx)
 				mlx->player.player_x = j;
 				mlx->player.player_y = i;
 			}
-			check = conditions(map[i][j++], 0);
+			check = conditions(map[i][j++], 0, mlx);
 		}
 		if (!check)
 			return (0);
 		i++;
 	}
-	check = conditions('0', 1);
+	check = conditions('0', 1, mlx);
 	return (check);
 }
 

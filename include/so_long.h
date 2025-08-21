@@ -90,6 +90,6 @@ void			update_player_position(t_game *mlx, char *keyboard);
 unsigned long	get_time(void);
 void			free_game(t_game *mlx);
 void			free_map(char **map);
-int				player_in_wall(t_game *mlx, int x, int y, char **map)
+int				player_in_wall(t_game *mlx, int x, int y, char **map);
 
 #endif

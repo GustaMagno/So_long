@@ -21,7 +21,8 @@ unsigned long	get_time(void)
 }
 void	update_player_position(t_game *mlx, char *keyboard)
 {
-	player_in_wall(mlx, keyboard[XK_d]  - keyboard[XK_a], keyboard[XK_s] - keyboard[XK_w], mlx->map.map, 63);
+	player_in_wall(mlx, keyboard[XK_d]  - keyboard[XK_a], keyboard[XK_s] - keyboard[XK_w], mlx->map.map);
+	//put_img(mlx, &mlx->images.player, mlx->player.player_x, mlx->player.player_y);
 }
 
 int	update_game(t_game *mlx)

@@ -30,6 +30,8 @@ typedef struct	s_img
 	int 	w;
 	int 	h;
 	int		endian;
+	int 	frame;
+	int		invert;
 }				t_img;
 
 typedef struct s_images

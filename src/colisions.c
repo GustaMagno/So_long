@@ -35,8 +35,10 @@ void	put_player(t_game *mlx)
 	}
 	if (i > 8)
 		i = 0;
+	mlx->images.player[0].frame = i;
+	mlx->images.coin.frame = i;
 	//printf("%d\n", i);
-	put_img(mlx, &mlx->images.player[i], mlx->player.player_x, mlx->player.player_y);
+	put_img(mlx, &mlx->images.player[0], mlx->player.player_x, mlx->player.player_y);
 }
 
 void	can_leave(t_game *mlx, char **map)
@@ -95,6 +97,10 @@ void	player_in_wall(t_game *mlx, int x, int y, char **map)
 	else if (x == 1 && map[py / 64][(px + 63) / 64] != '1' && map[(py + 63) / 64][(px + 63) / 64] != '1')
 		mlx->player.player_x += x;
 	take_coin(mlx, map);
+	if (x == -1)
+		mlx->images.player[0].invert = 0;
+	else if (x == 1)
+		mlx->images.player[0].invert = 1;
 	put_player(mlx);
 	can_leave(mlx, map);
 }

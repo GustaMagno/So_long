@@ -21,7 +21,8 @@ typedef struct s_player
 	int		player_y;
 }t_player;
 
-typedef struct	s_img {
+typedef struct	s_img 
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -35,7 +36,7 @@ typedef struct s_images
 {
 	t_img	ground;
 	t_img	wall;
-	t_img	player;
+	t_img	player[9];
 	t_img	exit;
 	t_img	coin;
 }t_images;
@@ -92,6 +93,6 @@ void			update_player_position(t_game *mlx, char *keyboard);
 unsigned long	get_time(void);
 void			free_game(t_game *mlx);
 void			free_map(char **map);
-int				player_in_wall(t_game *mlx, int x, int y, char **map);
+void			player_in_wall(t_game *mlx, int x, int y, char **map);
 
 #endif

@@ -20,7 +20,7 @@ static t_img	load_img(t_game *mlx, char *path)
 	
 	img.img = mlx_xpm_file_to_image(mlx->mlx, path, &img.w, &img.h);
 	if (!img.img)
-		return img;
+		return (img);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	return (img);
@@ -28,7 +28,15 @@ static t_img	load_img(t_game *mlx, char *path)
 
 void	load_images(t_game *mlx)
 {
-	mlx->images.player = load_img(mlx, "images/redslime.xpm");
+	mlx->images.player[0] = load_img(mlx, "images/slime0.xpm");
+	mlx->images.player[1] = load_img(mlx, "images/slime1.xpm");
+	mlx->images.player[2] = load_img(mlx, "images/slime2.xpm");
+	mlx->images.player[3] = load_img(mlx, "images/slime3.xpm");
+	mlx->images.player[4] = load_img(mlx, "images/slime4.xpm");
+	mlx->images.player[5] = load_img(mlx, "images/slime5.xpm");
+	mlx->images.player[6] = load_img(mlx, "images/slime6.xpm");
+	mlx->images.player[7] = load_img(mlx, "images/slime7.xpm");
+	mlx->images.player[8] = load_img(mlx, "images/slime8.xpm");
 	mlx->images.coin = load_img(mlx, "images/coin.xpm");
 	mlx->images.wall = load_img(mlx, "images/wall.xpm");
 	mlx->images.exit = load_img(mlx, "images/exit.xpm");

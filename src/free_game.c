@@ -32,17 +32,16 @@ void	free_game(t_game *mlx)
 {
 	if (mlx->mlx)
 	{
-		mlx_destroy_image(mlx->mlx, mlx->images.player.img);
+		// mlx_destroy_image(mlx->mlx, mlx->images.player.img);
 		mlx_destroy_image(mlx->mlx, mlx->images.coin.img);
 		mlx_destroy_image(mlx->mlx, mlx->images.exit.img);
 		mlx_destroy_image(mlx->mlx, mlx->images.wall.img);
 		mlx_destroy_image(mlx->mlx, mlx->images.ground.img);
+		mlx_destroy_image(mlx->mlx, mlx->buffer.img);
+		// free(mlx->buffer.img);
 		mlx_destroy_window(mlx->mlx,mlx->mlx_win);
 		mlx_destroy_display(mlx->mlx);
 		free(mlx->mlx);
-		mlx_destroy_image(mlx->mlx, mlx->buffer.img);
-		free(mlx->buffer.img);
-		free(mlx->buffer.addr);
 	}
 	free_map(mlx->map.map);
 	free(mlx->map.str);

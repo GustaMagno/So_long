@@ -38,7 +38,7 @@ typedef struct s_images
 {
 	t_img	ground;
 	t_img	wall;
-	t_img	player[9];
+	t_img	player;
 	t_img	exit;
 	t_img	coin;
 }t_images;

@@ -50,7 +50,7 @@ int	build_map(char *ber, t_game *mlx)
 	
 	fd = open(ber, O_RDONLY);
 	if (!parsing_ber(fd, ber))
-		return (close(fd), write(1, "INVALID MAP", 12), 0);
+		return (write(1, "INVALID MAP", 12), 0);
 	while (1)
 	{
 		strtemp = get_next_line(fd);

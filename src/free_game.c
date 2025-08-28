@@ -32,7 +32,7 @@ void	free_game(t_game *mlx)
 {
 	if (mlx->mlx)
 	{
-		// mlx_destroy_image(mlx->mlx, mlx->images.player.img);
+		mlx_destroy_image(mlx->mlx, mlx->images.player.img);
 		mlx_destroy_image(mlx->mlx, mlx->images.coin.img);
 		mlx_destroy_image(mlx->mlx, mlx->images.exit.img);
 		mlx_destroy_image(mlx->mlx, mlx->images.wall.img);

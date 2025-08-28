@@ -30,15 +30,21 @@ static t_img	load_img(t_game *mlx, char *path)
 
 void	load_images(t_game *mlx)
 {
-	mlx->images.player[0] = load_img(mlx, "images/slime.xpm");
-	mlx->images.player[0].h = 64;
-	mlx->images.player[0].w = 64;
+	mlx->images.player = load_img(mlx, "images/slime.xpm");
+	mlx->images.player.h = 64;
+	mlx->images.player.w = 64;
 	mlx->images.coin = load_img(mlx, "images/coin.xpm");
 	mlx->images.coin.h = 64;
 	mlx->images.coin.w = 64;
 	mlx->images.wall = load_img(mlx, "images/wall.xpm");
 	mlx->images.exit = load_img(mlx, "images/exit.xpm");
 	mlx->images.ground = load_img(mlx, "images/ground.xpm");
+	if (!(mlx->images.player.img) || !(mlx->images.coin.img) || !(mlx->images.wall.img) ||
+	!(mlx->images.exit.img) || !(mlx->images.ground.img))
+	{
+		free_game(mlx);
+		exit(0);
+	}
 }
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)

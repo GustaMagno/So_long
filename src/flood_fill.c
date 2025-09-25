@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 18:25:18 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/13 20:27:53 by gustoliv         ###   ########.fr       */
+/*   Created: 2025/09/01 20:38:18 by gustoliv          #+#    #+#             */
+/*   Updated: 2025/09/01 20:38:18 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 // 	while (map[i])
 // 	{
 // 		printf("%s\n", map[i]);
-// 		i++;	
+// 		i++;
 // 	}
 // 	printf("\n");
 // }
 
 int	check_flood(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])
@@ -47,7 +47,8 @@ int	check_flood(char **map)
 
 void	flood_fill(char **map, int x, int y)
 {
-	if (map[y][x] != 'P' && map[y][x] != 'C' && map[y][x] != 'E' && map[y][x] != '0')
+	if (map[y][x] != 'P' && map[y][x] != 'C' && map[y][x] != 'E'
+		&& map[y][x] != '0')
 		return ;
 	map[y][x] += 5;
 	flood_fill(map, x, y - 1);

@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+
 char	*ft_strjoin(char *s1, char *s2, char *s1_temp);
 int		check_newline(char *str);
 void	clean_buffer(char *buffer, int check);

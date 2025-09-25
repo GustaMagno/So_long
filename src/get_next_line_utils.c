@@ -39,6 +39,7 @@ char	*ft_strjoin(char *s1, char *s2, char *s1_temp)
 	*str = '\0';
 	return (temp);
 }
+
 int	check_newline(char *str)
 {
 	int	i;
@@ -52,6 +53,7 @@ int	check_newline(char *str)
 	}
 	return (1);
 }
+
 void	clean_buffer(char *buffer, int check)
 {
 	int	i;
@@ -62,14 +64,14 @@ void	clean_buffer(char *buffer, int check)
 	while (buffer[i])
 	{
 		if (!check && buffer[i] == '\n')
-		{	
+		{
 			buffer[i++] = '\0';
-			break;
+			break ;
 		}
 		buffer[i++] = '\0';
 	}
 	while (buffer[i])
-	{	
+	{
 		buffer[j++] = buffer[i];
 		buffer[i++] = '\0';
 	}

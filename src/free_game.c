@@ -5,17 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gustoliv <gustoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 21:12:23 by gustoliv          #+#    #+#             */
-/*   Updated: 2025/08/19 21:12:33 by gustoliv         ###   ########.fr       */
+/*   Created: 2025/09/01 20:39:06 by gustoliv          #+#    #+#             */
+/*   Updated: 2025/09/01 20:39:06 by gustoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	free_images(t_game *mlx)
+{
+	if (mlx->images.player.img)
+		mlx_destroy_image(mlx->mlx, mlx->images.player.img);
+	if (mlx->images.coin.img)
+		mlx_destroy_image(mlx->mlx, mlx->images.coin.img);
+	if (mlx->images.exit.img)
+		mlx_destroy_image(mlx->mlx, mlx->images.exit.img);
+	if (mlx->images.wall.img)
+		mlx_destroy_image(mlx->mlx, mlx->images.wall.img);
+	if (mlx->images.ground.img)
+		mlx_destroy_image(mlx->mlx, mlx->images.ground.img);
+	if (mlx->buffer.img)
+		mlx_destroy_image(mlx->mlx, mlx->buffer.img);
+}
+
 void	free_map(char **map)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	if (!map)
@@ -32,14 +47,8 @@ void	free_game(t_game *mlx)
 {
 	if (mlx->mlx)
 	{
-		mlx_destroy_image(mlx->mlx, mlx->images.player.img);
-		mlx_destroy_image(mlx->mlx, mlx->images.coin.img);
-		mlx_destroy_image(mlx->mlx, mlx->images.exit.img);
-		mlx_destroy_image(mlx->mlx, mlx->images.wall.img);
-		mlx_destroy_image(mlx->mlx, mlx->images.ground.img);
-		mlx_destroy_image(mlx->mlx, mlx->buffer.img);
-		// free(mlx->buffer.img);
-		mlx_destroy_window(mlx->mlx,mlx->mlx_win);
+		free_images(mlx);
+		mlx_destroy_window(mlx->mlx, mlx->mlx_win);
 		mlx_destroy_display(mlx->mlx);
 		free(mlx->mlx);
 	}

@@ -12,18 +12,6 @@
 
 #include "so_long.h"
 
-static size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
 static size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
 	size_t	j;
@@ -48,8 +36,6 @@ static size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	dest[j] = '\0';
 	return (src_len + dest_len);
 }
-
-
 
 char	*ft_strjoin2(char *s1, const char *s2)
 {

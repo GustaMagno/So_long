@@ -17,13 +17,13 @@ char	*get_next_line(int fd)
 	static char	s[BUFFER_SIZE + 1];
 	char		*line;
 	int			size;
-	
+
 	line = NULL;
 	size = 1;
 	if (fd < 0 || fd >= FOPEN_MAX)
 		return (NULL);
 	while (size)
-	{	
+	{
 		if (*s == '\0')
 			size = read(fd, s, BUFFER_SIZE);
 		if (size < 0)

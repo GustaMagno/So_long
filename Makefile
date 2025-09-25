@@ -1,34 +1,48 @@
 NAME	= so_long
 CC		= cc
-CFLAGS	= -g -O3 -Iinclude
-
+CFLAGS	= -Iinclude -Wall -Wextra -Werror
+OBJS_DIR = obj
 MLX_DIR	= ./minilibx-linux
-MLX_LIB	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+MLX_LIB	= $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
-SRCS	= $(shell find ./src -name "*.c")
-OBJS	= $(SRCS:.c=.o)
+SRCS = ./src/libftfunc/ft_split.c \
+       ./src//libftfunc/ft_strlcpy.c \
+       ./src//libftfunc/ft_strjoinl.c \
+       ./src//libftfunc/ft_strncmp.c \
+       ./src//libftfunc/ft_strrchr.c \
+       ./src/get_next_line.c \
+       ./src/get_next_line_utils.c \
+       ./src/map.c \
+       ./src/parsing.c \
+       ./src/render/render.c \
+       ./src/so_long.c \
+       ./src/update_game.c \
+       ./src/colisions.c \
+       ./src/flood_fill.c \
+       ./src/free_game.c
+OBJS	= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-all: $(NAME)
+all: $(MLX_LIB) $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) -o $(NAME)
+$(MLX_LIB):
+	@$(MAKE) -C $(MLX_DIR)
+
+$(NAME): $(OBJS) $(MLX_LIB)
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
 	
-%.o: %.c
+$(OBJS_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJS_DIR)
+	@$(MAKE) -C $(MLX_DIR) clean
 	
 fclean: clean
 	rm -f $(NAME)
+	@$(MAKE) -C $(MLX_DIR) clean
 	
 re: fclean all
 
-r:
-	make re && clear && ./$(NAME) mapa.ber
-
-v:
-	make re && clear && valgrind ./$(NAME) mapa.ber
-
-
-.PHONY: all clean fclean re run
+.PHONY: all clean fclean re

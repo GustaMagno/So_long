@@ -18,8 +18,11 @@ A small 2D game designed to improve skills in graphics, window management, and e
 
 ## 🎮 How to play
 1. **Clone the repository:**
+
    ```bash
    git clone [https://github.com/GustaMagno/so_long.git](https://github.com/GustaMagno/so_long.git)
    ```
+3. Run the Makefile
+
    ```bash
    make r

@@ -1,4 +1,5 @@
-# so_long - 42 Lisboa 🎮
+# so_long - 42 Lisbon 🎮
+
 
 A small 2D game designed to improve skills in graphics, window management, and event handling using the **MiniLibX** library.
 

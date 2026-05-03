@@ -20,4 +20,6 @@ A small 2D game designed to improve skills in graphics, window management, and e
 1. **Clone the repository:**
    ```bash
    git clone [https://github.com/GustaMagno/so_long.git](https://github.com/GustaMagno/so_long.git)
+
+   ```bash
    make r

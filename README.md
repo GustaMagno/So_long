@@ -18,10 +18,10 @@ A small 2D game designed to improve skills in graphics, window management, and e
 - **Concepts:** Memory management, 2D arrays (matrices), Flood Fill algorithm (for path validation).
 
 ## 🎮 How to play
-1. **Clone the repository:**
+1. **Clone the MLX repository:**
 
    ```bash
-   git clone [https://github.com/GustaMagno/so_long.git](https://github.com/GustaMagno/so_long.git)
+   git clone https://github.com/42paris/minilibx-linux.git
    ```
 3. Run the Makefile
 

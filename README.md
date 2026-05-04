@@ -38,7 +38,7 @@ make
 ### 3. Run the Game
 Execute the program by providing a valid map file as an argument:
 ```bash
-./so_long maps/map.ber
+./so_long correct.ber
 ```
 
 ## 🗺️ Map Rules

@@ -114,14 +114,14 @@ int	check_map(char **map, t_game *mlx)
 
 int	parsing_ber(int fd, char *ber)
 {
-	char	*str;
+	size_t	size;
 
 	if (fd < 0)
 		return (0);
-	str = ft_strrchr(ber, '.');
-	if (!str || ft_strlen(ber) <= 4)
+	size = ft_strlen(ber);
+	if (size <= 4)
 		return (0);
-	if (ft_strncmp(str, ".ber", 4) != 0)
+	if (ft_strncmp(&ber[size - 4], ".ber", 5) != 0)
 		return (0);
 	return (1);
 }
